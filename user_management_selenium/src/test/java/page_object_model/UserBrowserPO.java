@@ -1,4 +1,4 @@
-package pageObjects;
+package page_object_model;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -7,25 +7,25 @@ import org.openqa.selenium.support.FindBy;
 //page_url = http://localhost:8080/secure/admin/user/UserBrowser.jspa
 public class UserBrowserPO extends BasePO{
     @FindBy(xpath = "//input[@id='login-form-authenticatePassword']")
-    public WebElement authenticationPasswordInput;
+    private WebElement authenticationPasswordInput;
     @FindBy(xpath = "//input[@id='login-form-submit']")
-    public WebElement confirmBtn;
+    private WebElement confirmBtn;
     @FindBy(xpath = "//a[@id='create_user']")
-    public WebElement createUserLink;
+    private WebElement createUserLink;
     @FindBy(xpath = "//fieldset/div[1]/label")
-    public WebElement activeCheckbox;
+    private WebElement activeCheckbox;
     @FindBy(xpath = "//input[@id='user-edit-submit']")
-    public WebElement updateBtn;
+    private WebElement updateBtn;
     @FindBy(xpath = "//select[@id='user-filter-user-filter-active']")
-    public WebElement statusSelectMenu;
+    private WebElement statusSelectMenu;
     @FindBy(xpath = "//option[normalize-space()='Inactive']")
-    public WebElement inactiveOption;
+    private WebElement inactiveOption;
     @FindBy(xpath = "//input[@id='user-filter-userSearchFilter']")
-    public WebElement filterInput;
+    private WebElement filterInput;
     @FindBy(xpath = "//a[@id='user-filter-cancel']")
-    public WebElement resetUserFilterBtn;
+    private WebElement resetUserFilterBtn;
     @FindBy(xpath = "//input[@id='user-filter-group-field']")
-    public WebElement groupFilterInput;
+    private WebElement groupFilterInput;
 
     public void enterAuthenticationPassword(String adminPassword) { authenticationPasswordInput.sendKeys(adminPassword); }
     public void clickConfirmBtn() { confirmBtn.click(); }

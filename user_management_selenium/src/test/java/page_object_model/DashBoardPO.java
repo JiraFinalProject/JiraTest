@@ -1,35 +1,34 @@
-package pageObjects;
+package page_object_model;
 
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 // page_url = http://localhost:8080/secure/Dashboard.jspa
 public class DashBoardPO extends BasePO{
     @FindBy(xpath = "//a[@id='admin_users_menu']")
-    public WebElement linkUserManagement;
+    private WebElement linkUserManagement;
     @FindBy(xpath = "//a[@id='browse_link']")
-    public WebElement projectsTab;
+    private WebElement projectsTab;
     @FindBy(xpath = "//a[@id='project_template_create_link_lnk']")
-    public WebElement createProjectLink;
+    private WebElement createProjectLink;
     @FindBy(xpath = "//div[@id='project-template-group-software']//div[@class='templates']/div[1]")
-    public WebElement scrumSoftwareDevelopmentOption;
+    private WebElement scrumSoftwareDevelopmentOption;
     @FindBy(xpath = "//div[@class='dialog-button-panel']/button[normalize-space()='Next']")
-    public WebElement nextBtn;
+    private WebElement nextBtn;
     @FindBy(xpath = "(//button[normalize-space()='Select'])")
-    public WebElement selectBtn;
+    private WebElement selectBtn;
     @FindBy(xpath = "//input[@id='name']")
-    public WebElement projectNameInput;
+    private WebElement projectNameInput;
     @FindBy(xpath = "//input[@id='lead-field']")
-    public WebElement projectLeadInput;
+    private WebElement projectLeadInput;
     @FindBy(xpath = "//a[@id='admin_issues_menu']")
-    public WebElement issuesLink;
+    private WebElement issuesLink;
     @FindBy(xpath = "//button[normalize-space()='Submit']")
-    public WebElement submitProjectCreationBtn;
+    private WebElement submitProjectCreationBtn;
     public void clickLinkAdmin() {
-        new WebDriverWait(getDriver(), 30)
+        new WebDriverWait(getDriver(), 60)
                 .ignoring(StaleElementReferenceException.class)
                 .until((WebDriver d) -> {
                     d.findElement(By.id("admin_menu")).click();

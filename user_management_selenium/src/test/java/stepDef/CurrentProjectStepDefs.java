@@ -2,7 +2,7 @@ package stepDef;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
-import pageObjects.CurrentProjectPO;
+import page_object_model.CurrentProjectPO;
 
 public class CurrentProjectStepDefs {
     private final CurrentProjectPO currentProjectPO = new CurrentProjectPO();

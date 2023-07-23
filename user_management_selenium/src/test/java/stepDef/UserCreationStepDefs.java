@@ -2,7 +2,7 @@ package stepDef;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
-import pageObjects.UserCreationPO;
+import page_object_model.UserCreationPO;
 
 public class UserCreationStepDefs {
     private final UserCreationPO userCreationPO = new UserCreationPO();

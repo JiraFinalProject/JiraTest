@@ -31,11 +31,6 @@ public class DriverFactory {
                 webDriver.set(new ChromeDriver());
                 break;
             }
-            case "edge": {
-                WebDriverManager.edgedriver().setup();
-                webDriver.set(new EdgeDriver());
-                break;
-            }
             default: {
                 System.out.println("Browser type is not supported!");
             }

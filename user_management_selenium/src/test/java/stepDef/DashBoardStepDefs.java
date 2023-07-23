@@ -4,7 +4,7 @@ import drivers.DriverFactory;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pageObjects.DashBoardPO;
+import page_object_model.DashBoardPO;
 
 import static org.testng.Assert.assertEquals;
 

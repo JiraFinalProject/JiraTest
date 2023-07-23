@@ -1,10 +1,7 @@
 package stepDef;
 
 import io.cucumber.java.en.And;
-import org.openqa.selenium.By;
-import pageObjects.ViewUserPO;
-
-import static drivers.DriverFactory.getDriver;
+import page_object_model.ViewUserPO;
 
 public class ViewUserStepDefs {
     private final ViewUserPO viewUserPO = new ViewUserPO();

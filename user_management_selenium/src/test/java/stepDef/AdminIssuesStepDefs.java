@@ -3,7 +3,7 @@ package stepDef;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import pageObjects.AdminIssuesPO;
+import page_object_model.AdminIssuesPO;
 
 import static drivers.DriverFactory.getDriver;
 

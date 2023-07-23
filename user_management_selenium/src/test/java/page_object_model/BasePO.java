@@ -1,4 +1,4 @@
-package pageObjects;
+package page_object_model;
 
 import drivers.DriverFactory;
 import org.openqa.selenium.WebDriver;

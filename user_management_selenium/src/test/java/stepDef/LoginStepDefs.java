@@ -1,12 +1,10 @@
 package stepDef;
 
-import constants.URL;
 import drivers.DriverFactory;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pageObjects.LoginPO;
+import page_object_model.LoginPO;
 
 import static org.testng.Assert.assertEquals;
 

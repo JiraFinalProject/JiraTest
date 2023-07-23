@@ -9,7 +9,7 @@ public class ApplicationProperties {
 
     static {
         properties = new Properties();
-        try (FileInputStream fis = new FileInputStream("src/test/resources/application.properties")){
+        try (FileInputStream fis = new FileInputStream("src/test/java/application.properties")){
             properties.load(fis);
         } catch (IOException exception) {
             System.out.println("File Not Found!");

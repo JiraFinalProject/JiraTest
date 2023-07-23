@@ -1,16 +1,14 @@
-package runners;
-
-import drivers.DriverFactory;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-import org.testng.annotations.AfterTest;
 
 @CucumberOptions(
-        features = "classpath:features",
+        features = "src/test/java/features",
         glue = "classpath:stepDef",
         tags = "@projectManagement"
 )
-public class TestRunner extends AbstractTestNGCucumberTests {
+// tags = {@userManagement, @projectManagement}
+
+public class TestRunner_Meina extends AbstractTestNGCucumberTests {
 //    @AfterTest
 //    public void quitBrowser() {
 //        DriverFactory.getDriver().quit();

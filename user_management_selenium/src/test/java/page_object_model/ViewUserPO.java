@@ -1,4 +1,4 @@
-package pageObjects;
+package page_object_model;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -6,13 +6,13 @@ import org.openqa.selenium.support.FindBy;
 
 public class ViewUserPO extends BasePO{
     @FindBy(xpath = "//a[@id='editgroups_link']")
-    public WebElement manageGroupsBtn;
+    private WebElement manageGroupsBtn;
     @FindBy(xpath = "//textarea[@id='groupsToJoin-textarea']")
-    public WebElement searchGroupTextFiled;
+    private WebElement searchGroupTextFiled;
     @FindBy(xpath = "//input[@id='user-edit-groups-join']")
-    public WebElement joinSelectedGroupsBtn;
+    private WebElement joinSelectedGroupsBtn;
     @FindBy(xpath = "//nav[@id='admin-nav-heading']//li[@class='aui-nav-selected']//a")
-    public WebElement userManagementBtn;
+    private WebElement userManagementBtn;
     public void clickManagementGroupBtn() { manageGroupsBtn.click(); }
     public void enterGroupNameInSearchGroupTextFiled(String groupName) {
         searchGroupTextFiled.sendKeys(groupName);
