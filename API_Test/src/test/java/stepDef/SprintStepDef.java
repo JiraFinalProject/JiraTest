@@ -123,7 +123,7 @@ public class SprintStepDef {
                 "    \"project\": {\n" +
                 "      \"id\": \"10000\"\n" +
                 "    },\n" +
-                "    \"summary\": \"issue for sprint\",\n" +
+                "    \"summary\": \"issue for backlog\",\n" +
                 "    \"issuetype\": {\n" +
                 "      \"id\": \"10001\"\n" +
                 "    },\n" +
@@ -160,6 +160,7 @@ public class SprintStepDef {
         RestAssured.authentication = RestAssured.preemptive().basic(tlUsername, tlPassword);
 
         String boardId = variablesThreadLocal.get().get("boardId");
+        String sprintId = variablesThreadLocal.get().get("sprintId");
         //get active sprint
         Response response = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -174,12 +175,14 @@ public class SprintStepDef {
                 .orElse(null);
 
         //end the sprint
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("rapidViewId",boardId);
-        requestBody.put("sprintId",activeSprintId);
+        String requestBody = "{\n" +
+                "    \"rapidViewId\":"+boardId+" ,\n" +
+                "    \"sprintId\":"+sprintId+" \n" +
+                "}";
+
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(requestBody.toString())
+                .body(requestBody)
                 .when()
                 .put("/rest/greenhopper/1.0/sprint/"+activeSprintId+"/complete");
 
