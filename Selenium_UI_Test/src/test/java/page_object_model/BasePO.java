@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class BasePO {
     public BasePO() {
         WebDriver driver = DriverFactory.getDriver();
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
         PageFactory.initElements(driver, this);
     }
 }

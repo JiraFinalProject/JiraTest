@@ -8,7 +8,8 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions (
         features = "classpath:features",
-        glue = "classpath:stepDef"
+        glue = "classpath:stepDef",
+        tags = "@ProjectRole"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
     private long startTime;
