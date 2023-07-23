@@ -1,6 +1,6 @@
 @projectManagement
 Feature: As an admin, I can create a Scrum project and ass user to it and I can create different epics as a team lead user
-  Scenario Outline: Project management
+  Scenario Outline: Project management API Test
     Given I create a user with <name>, <password>, <emailAddress>, <displayName>, and <applicationKeys> as an admin user
     When as an admin user, I create a scrum project with <projectKey>, <projectName>, <projectTypeKey>, <projectTemplateKey>, <description>, <lead>, <url>, <assigneeType>, and apply an existing permission scheme <permissionScheme>
     And as an admin user, I add user <userAccountId> to the current project <projectKey>

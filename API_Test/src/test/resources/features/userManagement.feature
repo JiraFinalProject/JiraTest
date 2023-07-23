@@ -1,6 +1,6 @@
 @userManagement
 Feature: As an admin, I want to create a user and deactivate the user
-  Scenario Outline: User management
+  Scenario Outline: User management API Test
     When I create a user with <name>, <password>, <emailAddress>, <displayName>, and <applicationKeys> as an admin user
     And I deactivate a user <name>
     And I apply the user status filter on user <name>
