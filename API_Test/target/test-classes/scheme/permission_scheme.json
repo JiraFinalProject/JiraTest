@@ -1,0 +1,34 @@
+{
+  "name": "Permission Scheme",
+  "description": "team lead can manage sprints & assign issues; developer can resolve an issue; QA can close an issue",
+  "permissions": [
+    {
+      "holder": {
+        "type": "projectRole",
+        "parameter": 10108
+  },
+    "permission": "MANAGE_SPRINTS_PERMISSION"
+    },
+    {
+      "holder": {
+        "type": "projectRole",
+        "parameter": 10108
+  },
+    "permission": "ASSIGN_ISSUES"
+    },
+    {
+      "holder": {
+        "type": "projectRole",
+        "parameter": 10109
+  },
+    "permission": "RESOLVE_ISSUES"
+    },
+    {
+      "holder": {
+        "type": "projectRole",
+        "parameter": 10110
+  },
+    "permission": "CLOSE_ISSUES"
+    }
+  ]
+}
