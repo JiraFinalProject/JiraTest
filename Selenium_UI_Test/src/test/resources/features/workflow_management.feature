@@ -90,6 +90,9 @@
       And click on Configure
 #    //a[normalize-space()='Configure']
       And click on Columns
+
+
+
 #    //a[normalize-space()='Columns']
       And click on Add Column button
 #    //button[@id='ghx-config-addcolumn']

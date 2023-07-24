@@ -267,18 +267,19 @@ public class ScrumBoardPO extends BasePO{
 
     //And type in the column name Resolved
     //input[@id='ghx-column-name']
-    public void enterColumnNameResolved(){
+    public void enterColumnNameResolved() throws InterruptedException {
         try {
-            Thread.sleep(1000); // 5000 milliseconds = 5 seconds
+            Thread.sleep(5000); // 5000 milliseconds = 5 seconds
         } catch (InterruptedException e) {
             // Handle the exception if necessary
         }
         columnNameInput.sendKeys("Resolved");
+        //Thread.sleep(1000);
     }
 
     public void enterColumnNameClosed(){
         try {
-            Thread.sleep(1000); // 5000 milliseconds = 5 seconds
+            Thread.sleep(5000); // 5000 milliseconds = 5 seconds
         } catch (InterruptedException e) {
             // Handle the exception if necessary
         }
@@ -290,7 +291,7 @@ public class ScrumBoardPO extends BasePO{
     //button[@class='button-panel-button aui-button']
     public void clickColumnAddBtn(){
         try {
-            Thread.sleep(1000); // 5000 milliseconds = 5 seconds
+            Thread.sleep(5000); // 5000 milliseconds = 5 seconds
         } catch (InterruptedException e) {
             // Handle the exception if necessary
         }

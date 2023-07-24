@@ -5,8 +5,11 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "classpath:stepDef"
+        glue = "classpath:stepDef",
+        tags = "@IssueManagement",
+        publish = true
 )
+//tags = {@GroupManagement, @IssueManagement}
 public class TestRunner_MY extends AbstractTestNGCucumberTests {
     @DataProvider(parallel = true)
     @Override

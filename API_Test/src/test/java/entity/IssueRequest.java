@@ -21,9 +21,9 @@ public class IssueRequest {
         private CustomField issuetype;
         private CustomField priority;
         private String summary;
-        @JsonProperty("customfield_10102")
+        @JsonProperty("customfield_10101")
         private String epicLink;
-        @JsonProperty("customfield_10104")
+        @JsonProperty("customfield_10103")
         private String epicName;
     }
 

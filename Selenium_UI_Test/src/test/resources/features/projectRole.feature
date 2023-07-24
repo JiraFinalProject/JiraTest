@@ -16,7 +16,10 @@ Feature: Login functionality
     And I create dev role with <roleName3> and <roleDescript3>
     Then I click add dev role button
     When I manage member of a developer role
-    Then I add user to dev role
+    And I add user to dev role
+    Then I manage project role and assign user and filter by role
+    When I open issue setting
+    Then I create permission scheme
 
     Examples:
       |     username        |    password     |    roleName1    |     roleDescript1               |    roleName2    |     roleDescript2              |    roleName3    |     roleDescript3              |

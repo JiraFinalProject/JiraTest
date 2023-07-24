@@ -1,6 +1,7 @@
 package page_object_model;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.Keys;
 public class SettingPO extends BasePO{
     @FindBy(xpath = "//a[@id='project_role_browser']")
     private WebElement projectRoleButton;
@@ -25,6 +26,7 @@ public class SettingPO extends BasePO{
 
     @FindBy(xpath = "//input[@name='add']")
     private WebElement addUserButton;
+
     public void clickProjectRoleButton() {
         projectRoleButton.click();
     }
@@ -47,5 +49,6 @@ public class SettingPO extends BasePO{
         addUsernameBox.sendKeys("charlie");
         addUserButton.click();
     }
+
 
 }

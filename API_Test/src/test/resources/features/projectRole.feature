@@ -1,4 +1,4 @@
-
+@ProjectRole
 Feature: I want to test Project Role management of Jira
 
   Scenario: After I create a project, I can manage the roles

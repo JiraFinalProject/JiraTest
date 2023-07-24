@@ -7,7 +7,9 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "classpath:stepDef"
+        glue = "classpath:stepDef",
+        tags = "@Workflow",
+        publish = true
 )
 @RunWith(Cucumber.class)
 public class TestRunner_JY

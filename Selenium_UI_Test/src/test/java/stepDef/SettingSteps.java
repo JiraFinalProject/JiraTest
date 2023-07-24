@@ -60,8 +60,10 @@ public class SettingSteps {
         settingPO.setEditLink();
     }
 
-    @Then("I add user to dev role")
+    @And("I add user to dev role")
     public void i_add_user_to_role() {
         settingPO.setAddUsernameBox();
     }
+
+
 }

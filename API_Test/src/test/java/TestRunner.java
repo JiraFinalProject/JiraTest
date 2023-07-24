@@ -5,7 +5,9 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "classpath:stepDef"
+        glue = "classpath:stepDef",
+        tags = "@ProjectRole",
+        publish = true
 )
 public class TestRunner extends AbstractTestNGCucumberTests
 {

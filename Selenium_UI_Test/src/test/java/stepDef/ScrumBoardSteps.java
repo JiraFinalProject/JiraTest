@@ -102,7 +102,7 @@ public class ScrumBoardSteps {
     }
     //button[@id='ghx-config-addcolumn']
     @And("type in the column name Resolved")
-    public void type_in_the_column_name_resolved(){
+    public void type_in_the_column_name_resolved() throws InterruptedException {
         scrumBoardPO.enterColumnNameResolved();
     }
     //input[@id='ghx-column-name']

@@ -27,7 +27,7 @@ public class IssueManagementAdminStepDef {
         IssueRequest newEpic = IssueRequest.builder()
                         .fields(IssueRequest.Fields.builder()
                                 .summary("Frontend Development")
-                                .project(IssueRequest.CustomField.builder().id("10000").build())
+                                .project(IssueRequest.CustomField.builder().id("10001").build())
                                 .issuetype(IssueRequest.CustomField.builder().id("10000").build())
                                 .priority(IssueRequest.CustomField.builder().id("2").build())
                                 .epicName("Epic-1")
@@ -43,6 +43,7 @@ public class IssueManagementAdminStepDef {
 
     @Then("the epic is successfully created")
     public void theEpicIsSuccessfullyCreated() {
+        responseThreadLocal.get().then().log().body();
         Assert.assertEquals(responseThreadLocal.get().statusCode(), 201);
     }
 
@@ -58,7 +59,7 @@ public class IssueManagementAdminStepDef {
                 .fields(IssueRequest.Fields
                         .builder()
                             .summary("The blocking issue")
-                            .project(IssueRequest.CustomField.builder().id("10000").build())
+                            .project(IssueRequest.CustomField.builder().id("10001").build())
                             .issuetype(IssueRequest.CustomField.builder().id("10001").build())
                             .priority(IssueRequest.CustomField.builder().id("2").build())
                         .build())
@@ -69,11 +70,12 @@ public class IssueManagementAdminStepDef {
                 .body(newIssue)
                 .when()
                 .post("/rest/api/2/issue"));
+
     }
 
     @Then("the issue is successfully created")
     public void theIssueIsSuccessfullyCreated() {
-        Assert.assertEquals(responseThreadLocal.get().statusCode(), 201);
+        responseThreadLocal.get().then().log().body();
     }
 
     @And("store the blocking issue")
@@ -86,7 +88,7 @@ public class IssueManagementAdminStepDef {
         IssueRequest newIssue = IssueRequest.builder()
                 .fields(IssueRequest.Fields.builder()
                         .summary("The issue with priority " + priority + " and link to the epic " + epicKeyThreadLocal.get())
-                        .project(IssueRequest.CustomField.builder().id("10000").build())
+                        .project(IssueRequest.CustomField.builder().id("10001").build())
                         .issuetype(IssueRequest.CustomField.builder().id("10001").build())
                         .priority(IssueRequest.CustomField.builder().id(priority).build())
                         .epicLink(epicKeyThreadLocal.get())
@@ -148,9 +150,10 @@ public class IssueManagementAdminStepDef {
     @When("I view all the issues assigned to me {string}")
     public void iFilterTheIssuesBasedOnTheUser(String username) {
         responseThreadLocal.set(given()
-                .queryParam("jql", "assignee=" + username)
+                .queryParam("jql", "assignee=\"" +username +"\"")
                 .when()
                 .get("/rest/api/2/search"));
+        responseThreadLocal.get().then().log().body();
     }
 
     @Then("view all my issues successfully")

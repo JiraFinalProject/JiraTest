@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class SprintStepDef {
     private static final String BASEURL = "http://localhost:8080";
-    private static final String BOARDNAME = "FIN board";
-    private static final String PROJECTKEY = "FIN";
+    private static final String BOARDNAME = "FP board";
+    private static final String PROJECTKEY = "FP";
     private static final String ACTIVE = "active";
 
     private static ThreadLocal<Map<String, String>> variablesThreadLocal = new ThreadLocal<>();
@@ -45,7 +45,7 @@ public class SprintStepDef {
                 .body(sprintBody.toString())
                 .when()
                 .post(BASEURL+"/rest/greenhopper/1.0/sprint/"+boardId);
-        response.then().log();
+        response.then().statusCode(200).log().body();
 
 
         //get Sprint id
@@ -56,7 +56,7 @@ public class SprintStepDef {
         String sprintIssue ="{\n" +
                 "  \"fields\": {\n" +
                 "    \"project\": {\n" +
-                "      \"id\": \"10000\"\n" +
+                "      \"id\": \"10001\"\n" +
                 "    },\n" +
                 "    \"summary\": \"issue for sprint\",\n" +
                 "    \"issuetype\": {\n" +
@@ -72,7 +72,9 @@ public class SprintStepDef {
                 .contentType(ContentType.JSON)
                 .body(sprintIssue)
                 .when()
-                .post(BASEURL+"/rest/api/2/issue");
+                .post(BASEURL+"/rest/api/2/issue")
+                .then()
+                .statusCode(201).log().body();
 
         JSONObject startBody = new JSONObject();
         startBody.put("endDate", "26/Jul/23 10:51 PM");
@@ -85,7 +87,9 @@ public class SprintStepDef {
                 .contentType(ContentType.JSON)
                 .body(startBody.toString())
                 .when()
-                .put(BASEURL+"/rest/greenhopper/1.0/sprint/"+sprintId+"/start");
+                .put(BASEURL+"/rest/greenhopper/1.0/sprint/"+sprintId+"/start")
+                .then()
+                .statusCode(200);
     }
 
     @And("As a team leader user, I can move issues from the backlog to the current sprint. {string} and {string}")
@@ -96,7 +100,7 @@ public class SprintStepDef {
         String backlogIssue ="{\n" +
                 "    \"fields\": {\n" +
                 "        \"project\": {\n" +
-                "            \"id\": \"10000\"\n" +
+                "            \"id\": \"10001\"\n" +
                 "        },\n" +
                 "        \"summary\": \"issue for backlog\",\n" +
                 "        \"issuetype\": {\n" +
@@ -121,7 +125,7 @@ public class SprintStepDef {
         String sprintIssue ="{\n" +
                 "  \"fields\": {\n" +
                 "    \"project\": {\n" +
-                "      \"id\": \"10000\"\n" +
+                "      \"id\": \"10001\"\n" +
                 "    },\n" +
                 "    \"summary\": \"issue for backlog\",\n" +
                 "    \"issuetype\": {\n" +
@@ -133,11 +137,14 @@ public class SprintStepDef {
                 "    \"customfield_10100\": "+sprintId+"\n" +
                 "  }\n" +
                 "}";
-        response=RestAssured.given()
+        Response response_temp = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(sprintIssue)
                 .when()
                 .put(BASEURL+"/rest/api/2/issue/"+issueKey);
+        response_temp.then().log().body();
+                response_temp.then()
+                .statusCode(204);
 
 
     }
@@ -184,7 +191,9 @@ public class SprintStepDef {
                 .contentType(ContentType.JSON)
                 .body(requestBody)
                 .when()
-                .put("/rest/greenhopper/1.0/sprint/"+activeSprintId+"/complete");
+                .put("/rest/greenhopper/1.0/sprint/"+activeSprintId+"/complete")
+                .then()
+                .statusCode(200);
 
     }
 

@@ -5,6 +5,7 @@ import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.apache.poi.ss.formula.functions.T;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -21,7 +22,9 @@ public class CreateRoleStepDef {
     static private String USERNAME = "Junyu Deng";
     static private String PASSWORD = "12345678";
     static ThreadLocal<Response> responseThreadLocal = new ThreadLocal<>();
-
+    static ThreadLocal<String> teamID = new ThreadLocal<>();
+    static ThreadLocal<String> devID = new ThreadLocal<>();
+    static ThreadLocal<String> qaID = new ThreadLocal<>();
     @When("I log in as an admin user")
     public void loginAsAdmin() {
         JSONObject jsonObject = new JSONObject();
@@ -43,11 +46,13 @@ public class CreateRoleStepDef {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", "team lead");
         jsonObject.put("description", "The leader of development team");
-        RestAssured.given()
+        Response responseTemp = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
                 .body(jsonObject.toString())
-                .post(BASEURL + "/rest/api/2/role")
+                .post(BASEURL + "/rest/api/2/role");
+        teamID.set(responseTemp.jsonPath().getString("id"));
+        responseTemp
                 .then()
                 .log().body();
     }
@@ -58,11 +63,13 @@ public class CreateRoleStepDef {
         JSONObject developer = new JSONObject();
         developer.put("name", "developer");
         developer.put("description", "Role for all developers");
-        RestAssured.given()
+        Response responseTemp = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
                 .body(developer.toString())
-                .post(BASEURL + "/rest/api/2/role")
+                .post(BASEURL + "/rest/api/2/role");
+        devID.set(responseTemp.jsonPath().getString("id"));
+        responseTemp
                 .then()
                 .log().body();
     }
@@ -73,11 +80,13 @@ public class CreateRoleStepDef {
         JSONObject qa = new JSONObject();
         qa.put("name", "QA");
         qa.put("description", "Role Quality Engineer");
-        RestAssured.given()
+        Response responseTemp = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
                 .body(qa.toString())
-                .post(BASEURL + "/rest/api/2/role")
+                .post(BASEURL + "/rest/api/2/role");
+        qaID.set(responseTemp.jsonPath().getString("id"));
+        responseTemp
                 .then()
                 .log().body();
     }
@@ -91,7 +100,7 @@ public class CreateRoleStepDef {
                 .contentType(ContentType.JSON)
                 .when()
                 .body(jsonObject.toString())
-                .post(BASEURL + "/rest/api/2/project/10002/role/10110"));
+                .post(BASEURL + "/rest/api/2/project/10001/role/"+devID.get()));
     }
 
     @Then("I check the status code")
@@ -107,27 +116,29 @@ public class CreateRoleStepDef {
         responseThreadLocal.set(RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get(BASEURL + "/rest/api/2/project/10002/role/10109"));
+                .get(BASEURL + "/rest/api/2/project/10001/role/"+devID.get()));
     }
 
     @Then("I print out all users")
     public void printUserByRole() {
-        responseThreadLocal.get().then().statusCode(200).log().body();
+        responseThreadLocal.get().then().log().body();
     }
 
     @When("I create the permission scheme")
     public void createPermissionScheme() throws IOException {
         RestAssured.authentication = RestAssured.preemptive().basic(USERNAME, PASSWORD);
+        String jsonString = "{\"name\":\"PermissionScheme\",\"description\":\"teamleadcanmanagesprints&assignissues;developercanresolveanissue;QAcancloseanissue\",\"permissions\":[{\"holder\":{\"type\":\"projectRole\",\"parameter\":"+teamID.get()+"},\"permission\":\"MANAGE_SPRINTS_PERMISSION\"},{\"holder\":{\"type\":\"projectRole\",\"parameter\":"+teamID.get()+"},\"permission\":\"ASSIGN_ISSUES\"},{\"holder\":{\"type\":\"projectRole\",\"parameter\":"+devID.get()+"},\"permission\":\"RESOLVE_ISSUES\"},{\"holder\":{\"type\":\"projectRole\",\"parameter\":"+qaID.get()+"},\"permission\":\"CLOSE_ISSUES\"}]}";
         responseThreadLocal.set(RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
-                .body(Files.newInputStream(Paths.get("src/test/resources/scheme/permission_scheme.json")))
+                .body(jsonString)
                 .post(BASEURL + "/rest/api/2/permissionscheme"));
     }
 
     @Then("I get all permission scheme to validate")
     public void getAllPermissionScheme() {
         responseThreadLocal.get().then().log().body();
+
         RestAssured.authentication = RestAssured.preemptive().basic(USERNAME, PASSWORD);
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -138,12 +149,13 @@ public class CreateRoleStepDef {
     public void assignToProject() {
         RestAssured.authentication = RestAssured.preemptive().basic(USERNAME, PASSWORD);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", "10009");
+
+        jsonObject.put("id", responseThreadLocal.get().jsonPath().getString("id"));
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
                 .body(jsonObject.toString())
-                .put(BASEURL + "/rest/api/2/project/10002/permissionscheme").then().log().body();
+                .put(BASEURL + "/rest/api/2/project/10001/permissionscheme").then().log().body();
 
     }
 
@@ -153,7 +165,7 @@ public class CreateRoleStepDef {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get(BASEURL + "/rest/api/2/project/10002/permissionscheme").then().log().body();
+                .get(BASEURL + "/rest/api/2/project/10001/permissionscheme").then().log().body();
     }
 
 }

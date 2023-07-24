@@ -33,12 +33,13 @@ public class UserStepDef {
 //        ;
 //
 //    }
-
+    static final String username_JY = "Junyu Deng";
+    static final String password_JY = "12345678";
     @When("I am a developer")
     public void loginAsDeveloper(){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("username", "usernameyang");
-        jsonObject.put("password", "passwordyang");
+        jsonObject.put("username", username_JY);
+        jsonObject.put("password", password_JY);
         given().contentType(ContentType.JSON)
                 .when()
                 .body(jsonObject.toString())
@@ -52,20 +53,20 @@ public class UserStepDef {
 
            given().auth()
                 .preemptive()
-                .basic("usernameyang", "passwordyang")
+                .basic(username_JY, password_JY)
                 .header("Content-Type", "application/json")
                 .body("{\"transition\": {\"id\":\"21\"}}")
                 .when()
-                .post("http://localhost:8080/rest/api/2/issue/JYK-1/transitions")
+                .post("http://localhost:8080/rest/api/2/issue/FP-11/transitions")
                 .then()
                 .statusCode(204);
 
         String status = given()
                 .auth()
                 .preemptive()
-                .basic("usernameyang", "passwordyang")
+                .basic(username_JY, password_JY)
                 .when()
-                .get("http://localhost:8080/rest/api/2/issue/JYK-1")
+                .get("http://localhost:8080/rest/api/2/issue/FP-11")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -82,20 +83,20 @@ public class UserStepDef {
 
                 given().auth()
                 .preemptive()
-                .basic("usernameyang", "passwordyang")
+                .basic(username_JY, password_JY)
                 .header("Content-Type", "application/json")
                 .body("{\"transition\": {\"id\":\"41\"}}")
                 .when()
-                .post("http://localhost:8080/rest/api/2/issue/JYK-1/transitions")
+                .post("http://localhost:8080/rest/api/2/issue/FP-11/transitions")
                 .then()
                 .statusCode(204);
 
         String status = given()
                 .auth()
                 .preemptive()
-                .basic("usernameyang", "passwordyang")
+                .basic(username_JY, password_JY)
                 .when()
-                .get("http://localhost:8080/rest/api/2/issue/JYK-1")
+                .get("http://localhost:8080/rest/api/2/issue/FP-11")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -112,8 +113,8 @@ public class UserStepDef {
     @When("I am a QA")
     public void loginAsQA(){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("username", "usernameyang");
-        jsonObject.put("password", "passwordyang");
+        jsonObject.put("username", username_JY);
+        jsonObject.put("password", password_JY);
         given().contentType(ContentType.JSON)
                 .when()
                 .body(jsonObject.toString())
@@ -129,20 +130,20 @@ public class UserStepDef {
 
                 given().auth()
                 .preemptive()
-                .basic("usernameyang", "passwordyang")
+                .basic(username_JY, password_JY)
                 .header("Content-Type", "application/json")
                 .body("{\"transition\": {\"id\":\"51\"}}")
                 .when()
-                .post("http://localhost:8080/rest/api/2/issue/JYK-1/transitions")
+                .post("http://localhost:8080/rest/api/2/issue/FP-11/transitions")
                 .then()
                 .statusCode(204);
 
         String status = given()
                 .auth()
                 .preemptive()
-                .basic("usernameyang", "passwordyang")
+                .basic(username_JY, password_JY)
                 .when()
-                .get("http://localhost:8080/rest/api/2/issue/JYK-1")
+                .get("http://localhost:8080/rest/api/2/issue/FP-11")
                 .then()
                 .statusCode(200)
                 .extract()
