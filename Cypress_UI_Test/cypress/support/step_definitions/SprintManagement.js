@@ -27,12 +27,16 @@ When("As a team leader user, I can create and start a new sprint. {} and {}",(tl
     //cy.get('button[type="button"]:eq(1)').should("be.visible").click()
     //cy.get('textarea[name="summary"]:eq(0)').type("create a issue for sprint to start it").type('{enter}')
 
-    cy.get("#create_link").click()
-    //Depending on whether the computer is lagging.
-    cy.get("#summary").should("be.visible").type("create a issue for sprint to start")
-    cy.get('#customfield_10100-field').click()
-    cy.get('#customfield_10100-field').type("FIN Sprint 1").wait(2000).type('{enter}')
-    cy.get("#create-issue-submit").click().wait(2000)
+    /* cy.get("#create_link").click()
+     //Depending on whether the computer is lagging.
+     cy.get("#summary").should("be.visible").type("create a issue for sprint to start")
+   //  cy.get('#customfield_10100-field').click()
+     cy.get('#customfield_10100-field').scrollIntoView().type("FIN Sprint 1").wait(2000).type('{enter}')
+     cy.get("#create-issue-submit").click().wait(2000)
+ */
+
+    cy.get('button[type="button"][resolved=""]:eq(0)').click()
+    cy.get('textarea[name="summary"]:eq(0)').type("create a issue for sprint to start").wait(1000).type('{enter}')
 
 
     //start a sprint
@@ -54,7 +58,11 @@ When("As a team leader user, I can move issues from the backlog to the current s
     //move
     cy.reload()
     cy.wait(1000)
-    cy.get(".ghx-issues:eq(1) div").eq(1).trigger("mousedown",{which:1})
+    //cy.get(".ghx-issues:eq(1) div").eq(1).trigger("mousedown",{which:1})
+    cy.get('.ghx-issues:eq(-1)').children().then((children) => {
+        cy.wrap(children.get(children.length - 2)).trigger("mousedown",{which:1})
+    })
+    //cy.get(".ghx-backlog-header:eq(0)").scrollIntoView().trigger("mousemove").trigger("mouseup",focus(true))
     cy.get(".ghx-issues:eq(0)").trigger("mousemove").trigger("mouseup",focus(true))
 
     cy.get('button[class="button-panel-button aui-button"]').should("be.visible").click()
