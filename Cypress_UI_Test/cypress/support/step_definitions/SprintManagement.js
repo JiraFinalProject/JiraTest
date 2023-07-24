@@ -28,7 +28,7 @@ When("As a team leader user, I can create and start a new sprint. {} and {}",(tl
     //cy.get('textarea[name="summary"]:eq(0)').type("create a issue for sprint to start it").type('{enter}')
 
     cy.get("#create_link").click()
-    cy.wait(2000) //Depending on whether the computer is lagging.
+    //Depending on whether the computer is lagging.
     cy.get("#summary").should("be.visible").type("create a issue for sprint to start")
     cy.get('#customfield_10100-field').click()
     cy.get('#customfield_10100-field').type("FIN Sprint 1").wait(2000).type('{enter}')
@@ -36,7 +36,7 @@ When("As a team leader user, I can create and start a new sprint. {} and {}",(tl
 
 
     //start a sprint
-    cy.reload().wait(2000);
+    cy.reload()
     cy.get(".js-sprint-start").should("be.enabled").click()
     cy.get('button[type="submit"]').click()
 })
@@ -48,20 +48,20 @@ When("As a team leader user, I can move issues from the backlog to the current s
 
     //create a issue for backlog
     cy.get("#create_link").click()
-    cy.wait(2000)
     cy.get("#summary").should("be.visible").type("create a issue for backlog")
     cy.get("#create-issue-submit").click()
 
     //move
-    cy.wait(4000)
-    cy.get(".ghx-issues:eq(1) div").eq(1).should("be.visible").trigger("mousedown",{which:1})
-    cy.get(".ghx-issues:eq(0)").should("be.visible").trigger("mousemove").trigger("mouseup",focus(true))
+    cy.reload()
+    cy.wait(1000)
+    cy.get(".ghx-issues:eq(1) div").eq(1).trigger("mousedown",{which:1})
+    cy.get(".ghx-issues:eq(0)").trigger("mousemove").trigger("mouseup",focus(true))
 
-    cy.get('button[class="button-panel-button aui-button"]').click()
+    cy.get('button[class="button-panel-button aui-button"]').should("be.visible").click()
 })
 
 When("As a developer user, I can view all the issues in the current sprint. {} and {}",(de_username,de_password)=>{
-   //log out
+    //log out
     cy.get("#header-details-user-fullname").click()
     cy.get("#log_out").click()
 
@@ -77,7 +77,7 @@ When("As a developer user, I can view all the issues in the current sprint. {} a
     cy.get('a[data-track-click="projects.browse.project"]:eq(0)').click()
 
     //go to Active sprints
-    cy.get('a[data-label="Active sprints"]').click()
+    cy.get('a[data-label="Active sprints"]').should("be.visible").click()
 
 })
 
@@ -90,39 +90,35 @@ When("As a team lead user, I can end the current active sprint. {} and {}",(tl_u
     cy.get("#login-form-submit").click()
 
     //go to Final project
-    cy.get("#browse_link").click()
+    cy.get("#browse_link").should("be.visible").click()
     cy.get("#project_type_software_lnk").click()
     cy.get('a[data-track-click="projects.browse.project"]:eq(0)').click()
 
     //go to Active sprints
-    cy.wait(2000)
-    cy.get('a[data-label="Active sprints"]').click()
+    cy.get('a[data-label="Active sprints"]').should("be.visible").click()
 
     //end the sprint
-  //  cy.get("#ghx-complete-sprint").click()
-  // cy.get(".button-panel-button").click()
+    //  cy.get("#ghx-complete-sprint").click()
+    // cy.get(".button-panel-button").click()
 })
 
 When("As a team lead user, I can download the velocity chart of the last 6 months as an image.",()=>{
     //go to Reports
-    cy.wait(2000)
-    cy.get('a[data-label="Reports"]').click()
+    cy.get('a[data-label="Reports"]').should("be.visible").click()
 
     //go to velocityChart
-    cy.wait(2000)
-    cy.get('button[aria-label="Switch report"]').click()
+    cy.get('button[aria-label="Switch report"]').should("be.visible").click()
     cy.contains('Velocity Chart').click()
 
 
     //select 6 months
-    cy.get('button[aria-controls="velocity-chart-timeframe-dropdown"]').click()
+    cy.get('button[aria-controls="velocity-chart-timeframe-dropdown"]').should("be.visible").click()
     cy.get('aui-item-radio[data-timeframe="6"]').click()
     cy.get("#js-apply-btn").click()
     //cy.get('#velocity-echarts > div:nth-child(1)').click();
 
-    cy.wait(2000)
 
-    cy.get("canvas").then($thiscanvas=>{
+    cy.get("canvas").should("be.visible").then($thiscanvas=>{
         const width=$thiscanvas.width();
         const height=$thiscanvas.height();
 
@@ -130,6 +126,5 @@ When("As a team lead user, I can download the velocity chart of the last 6 month
         const buttonY = height/15;
 
         cy.wrap($thiscanvas).click(buttonX,buttonY);
-
     })
 })
